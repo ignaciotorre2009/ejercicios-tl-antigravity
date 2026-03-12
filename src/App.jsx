@@ -2,6 +2,22 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ArrowDownCircle, ArrowRight, ArrowLeft, CheckCircle2, CircleDot, PenTool, Eraser, Minus, Type, Layers, Undo, Activity, Maximize, Minimize, BookOpen, PlayCircle, TrendingUp, TrendingDown } from 'lucide-react';
 import './index.css';
 
+const ToolBtn = ({ t, icon: Icon, label, currentTool, onToolChange }) => (
+  <button
+    onClick={() => onToolChange(t)}
+    style={{
+      display: 'flex', alignItems: 'center', gap: '0.4rem', border: '1px solid', borderColor: currentTool === t ? 'var(--card-border)' : 'transparent', background: currentTool === t ? 'rgba(255, 94, 0, 0.05)' : 'transparent',
+      color: currentTool === t ? 'var(--accent-color)' : 'var(--text-secondary)', padding: '0.5rem 0.8rem', borderRadius: '6px', cursor: 'pointer',
+      fontSize: '0.9rem', transition: 'all 0.2s', fontWeight: currentTool === t ? 600 : 500
+    }}
+    title={label}
+    onMouseEnter={(e) => currentTool !== t && (e.currentTarget.style.backgroundColor = 'var(--card-hover)')}
+    onMouseLeave={(e) => currentTool !== t && (e.currentTarget.style.backgroundColor = 'transparent')}
+  >
+    <Icon size={16} /> <span className="tool-label">{label}</span>
+  </button>
+);
+
 const DrawingCanvas = ({ src, alt }) => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
@@ -311,12 +327,11 @@ const DrawingCanvas = ({ src, alt }) => {
 
   const startDrawing = (e) => {
     if (textInput.show) {
-      return; // Handled by blur/enter on the input
+      return;
     }
     e.preventDefault();
     const { x, y } = getCoordinates(e);
 
-    // Hit test for existing position handles
     if (selectedElementIndex !== null) {
       const el = elements[selectedElementIndex];
       if (el && (el.type === 'positionLong' || el.type === 'positionShort')) {
@@ -342,7 +357,6 @@ const DrawingCanvas = ({ src, alt }) => {
       }
     }
 
-    // Hit test to select a position
     for (let i = elements.length - 1; i >= 0; i--) {
       const el = elements[i];
       if (el.type === 'positionLong' || el.type === 'positionShort') {
@@ -372,7 +386,6 @@ const DrawingCanvas = ({ src, alt }) => {
       } else {
         const newPoints = [...currentElement.points, {x, y}];
         if (newPoints.length > 6) { 
-          // 6 points total
           setElements(prev => [...prev, { ...currentElement, points: currentElement.points }]);
           setCurrentElement(null);
           setIsDrawing(false);
@@ -391,8 +404,7 @@ const DrawingCanvas = ({ src, alt }) => {
     } else if (tool === 'fibo') {
       setCurrentElement({ type: 'fibo', x1: x, y1: y, x2: x, y2: y, color });
     } else if (tool === 'positionLong' || tool === 'positionShort') {
-      // Initialize with mirrored height
-      setCurrentElement({ type: tool, x1: x, y1: y, x2: x, slHeight: 0, tpHeight: 0 });
+      setCurrentElement({ type: tool, x1: x, y1: y, x2: x, slHeight: 0, tpHeight: 0, color });
     }
   };
 
@@ -427,7 +439,6 @@ const DrawingCanvas = ({ src, alt }) => {
     } else if (tool === 'line' || tool === 'fibo') {
       setCurrentElement(prev => ({ ...prev, x2: x, y2: y }));
     } else if (tool === 'positionLong' || tool === 'positionShort') {
-      // Mirror the drag for initial setup
       const h = y - currentElement.y1;
       setCurrentElement(prev => ({ 
         ...prev, 
@@ -440,7 +451,7 @@ const DrawingCanvas = ({ src, alt }) => {
 
   const stopDrawing = (e) => {
     e.preventDefault();
-    if (tool === 'elliot') return; // let mousedown handle the progression for elliot waves
+    if (tool === 'elliot') return;
     
     if (dragHandle) {
       setDragHandle(null);
@@ -450,7 +461,7 @@ const DrawingCanvas = ({ src, alt }) => {
 
     if (isDrawing && currentElement) {
       setElements(prev => [...prev, currentElement]);
-      setSelectedElementIndex(elements.length); // auto-select newly created position
+      setSelectedElementIndex(elements.length);
       setCurrentElement(null);
     }
     setIsDrawing(false);
@@ -478,7 +489,7 @@ const DrawingCanvas = ({ src, alt }) => {
   };
 
   const toggleFullscreen = () => {
-    const elem = containerRef.current.parentElement; // The whole DrawingCanvas component wrapper
+    const elem = containerRef.current.parentElement;
     if (!document.fullscreenElement) {
       if (elem.requestFullscreen) {
         elem.requestFullscreen().catch(() => {});
@@ -490,37 +501,21 @@ const DrawingCanvas = ({ src, alt }) => {
     }
   };
 
-  const ToolBtn = ({ t, icon: Icon, label }) => (
-    <button
-      onClick={() => handleToolChange(t)}
-      style={{
-        display: 'flex', alignItems: 'center', gap: '0.4rem', border: '1px solid', borderColor: tool === t ? 'var(--card-border)' : 'transparent', background: tool === t ? 'rgba(255, 94, 0, 0.05)' : 'transparent',
-        color: tool === t ? 'var(--accent-color)' : 'var(--text-secondary)', padding: '0.5rem 0.8rem', borderRadius: '6px', cursor: 'pointer',
-        fontSize: '0.9rem', transition: 'all 0.2s', fontWeight: tool === t ? 600 : 500
-      }}
-      title={label}
-      onMouseEnter={(e) => tool !== t && (e.currentTarget.style.backgroundColor = 'var(--card-hover)')}
-      onMouseLeave={(e) => tool !== t && (e.currentTarget.style.backgroundColor = 'transparent')}
-    >
-      <Icon size={16} /> <span style={{display: 'none', '@media (min-width: 768px)': {display: 'inline'}}}>{label}</span>
-    </button>
-  );
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
       {/* TradingView-style Toolbar */}
       <div style={{ display: 'flex', gap: '1rem', justifyContent: 'space-between', flexWrap: 'wrap', alignItems: 'center', backgroundColor: 'var(--card-bg)', padding: '0.5rem 0.75rem', borderRadius: '8px', border: '1px solid var(--card-border)' }}>
         
         <div style={{ display: 'flex', gap: '0.25rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <ToolBtn t="line" icon={Minus} label="Línea Recta" />
-          <ToolBtn t="fibo" icon={Layers} label="Fibonacci" />
-          <ToolBtn t="elliot" icon={Activity} label="Ondas Elliot" />
+          <ToolBtn t="line" icon={Minus} label="Línea Recta" currentTool={tool} onToolChange={handleToolChange} />
+          <ToolBtn t="fibo" icon={Layers} label="Fibonacci" currentTool={tool} onToolChange={handleToolChange} />
+          <ToolBtn t="elliot" icon={Activity} label="Ondas Elliot" currentTool={tool} onToolChange={handleToolChange} />
           <div style={{ width: '1px', height: '20px', backgroundColor: 'var(--card-border)', margin: '0 0.5rem' }}></div>
-          <ToolBtn t="positionLong" icon={TrendingUp} label="Largo" />
-          <ToolBtn t="positionShort" icon={TrendingDown} label="Corto" />
+          <ToolBtn t="positionLong" icon={TrendingUp} label="Largo" currentTool={tool} onToolChange={handleToolChange} />
+          <ToolBtn t="positionShort" icon={TrendingDown} label="Corto" currentTool={tool} onToolChange={handleToolChange} />
           <div style={{ width: '1px', height: '20px', backgroundColor: 'var(--card-border)', margin: '0 0.5rem' }}></div>
-          <ToolBtn t="pen" icon={PenTool} label="Resaltador" />
-          <ToolBtn t="text" icon={Type} label="Texto" />
+          <ToolBtn t="pen" icon={PenTool} label="Resaltador" currentTool={tool} onToolChange={handleToolChange} />
+          <ToolBtn t="text" icon={Type} label="Texto" currentTool={tool} onToolChange={handleToolChange} />
           
           <div style={{ width: '1px', height: '24px', backgroundColor: 'var(--card-border)', margin: '0 0.5rem' }}></div>
           
