@@ -942,7 +942,7 @@ const questions = {
     {
       id: 4,
       title: "Ruptura de Estructura en EURCAD",
-      desc: "Identificación de niveles BoS y ChoCh en el par EURCAD mensual.",
+      desc: "Identificación de niveles de ruptura de estructura y cambio de tendencia en el par EURCAD mensual.",
       question: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <h3 style={{ color: 'var(--accent-color)', fontSize: '1.4rem', margin: 0 }}>Ruptura de Estructura en el Gráfico Mensual (EURCAD)</h3>
@@ -955,15 +955,15 @@ const questions = {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', backgroundColor: 'rgba(255, 255, 255, 0.03)', padding: '1.25rem', borderRadius: '12px', border: '1px solid var(--card-border)' }}>
              <h4 style={{ color: 'var(--text-primary)', margin: 0, fontSize: '1.1rem' }}>Conceptos Clave del SMC:</h4>
              <ul style={{ color: 'var(--text-secondary)', lineHeight: 1.6, margin: '0.5rem 0 0 1.25rem', padding: 0 }}>
-                <li><strong>BoS (Break of Structure):</strong> Ruptura a favor de la tendencia principal. Indica continuación.</li>
-                <li><strong>ChoCh (Change of Character):</strong> Primer indicio de cambio de dirección. Inversión de tendencia.</li>
+                <li><strong>Ruptura de Estructura:</strong> Ruptura a favor de la tendencia principal. Indica continuación.</li>
+                <li><strong>Cambio de Tendencia:</strong> Primer indicio de cambio de dirección. Inversión de tendencia.</li>
              </ul>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <label style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Tus Notas de Análisis:</label>
             <textarea 
-              placeholder="Justifica tus trazados aquí (ej: 'El precio rompe el último máximo formando un BoS...')"
+              placeholder="Justifica tus trazados aquí (ej: 'El precio rompe el último máximo formando una ruptura de estructura...')"
               style={{
                 width: '100%',
                 minHeight: '100px',
@@ -983,7 +983,7 @@ const questions = {
           </div>
 
           <p style={{ lineHeight: 1.6, color: 'var(--text-secondary)', margin: 0 }}>
-            <em>Dibuja tus propios niveles de BoS/ChoCh sobre el gráfico antes de ver la solución en video.</em>
+            <em>Dibuja tus propios niveles de ruptura sobre el gráfico antes de ver la solución en video.</em>
           </p>
         </div>
       ),
@@ -996,7 +996,7 @@ const questions = {
           <div>
             <h4 style={{ color: 'var(--text-primary)', fontSize: '1.2rem', margin: '0 0 0.5rem 0' }}>Análisis de Ruptura de Estructura</h4>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
-              En este video explicamos detalladamente las rupturas de estructura (BoS) y los cambios de carácter (ChoCh) identificados en EURCAD:
+              En este video explicamos detalladamente las rupturas de estructura y los cambios de tendencia identificados en EURCAD:
             </p>
           </div>
           
@@ -1032,7 +1032,7 @@ const questions = {
              <h4 style={{ color: 'var(--text-primary)', margin: 0, fontSize: '1.1rem' }}>Reglas de Oro:</h4>
              <ul style={{ color: 'var(--text-secondary)', lineHeight: 1.6, margin: '0.5rem 0 0 1.25rem', padding: 0 }}>
                 <li><strong>Trazado:</strong> Fibonacci siempre se traza del <strong>mínimo al máximo</strong>.</li>
-                <li><strong>Identificación:</strong> Es crucial identificar claramente las rupturas de estructura (BoS/ChoCh) para definir los extremos relevantes.</li>
+                <li><strong>Identificación:</strong> Es crucial identificar claramente las rupturas de estructura para definir los extremos relevantes.</li>
              </ul>
           </div>
 
@@ -1231,6 +1231,193 @@ const questions = {
             <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
                <iframe 
                   src="https://www.loom.com/embed/d07d5f47e23646fea1e32064a320c8be?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" 
+                  frameBorder="0" 
+                  webkitAllowFullScreen={true}
+                  mozAllowFullScreen={true}
+                  allowFullScreen={true}
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+               ></iframe>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 8,
+      title: "Estructura de Mercado: Impulsos y Pullbacks",
+      desc: "Desafío semanal sobre la identificación de rupturas de estructura y cambios de tendencia.",
+      question: (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <h3 style={{ color: 'var(--accent-color)', fontSize: '1.4rem', margin: 0 }}>Desafío: Ruptura de Estructura vs. Ruptura de Tendencia</h3>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', backgroundColor: 'rgba(255, 94, 0, 0.05)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--card-border)' }}>
+             <h4 style={{ color: 'var(--text-primary)', margin: 0, fontSize: '1.1rem' }}>Ruptura de Estructura vs. Ruptura de Tendencia en el Precio</h4>
+             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '0.5rem' }}>
+                <div>
+                   <p style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.25rem' }}>Ruptura de Estructura:</p>
+                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.5 }}>Ocurre cuando el precio continúa con la misma tendencia, es decir, sigue creando máximos más altos (en tendencia alcista) o mínimos más bajos (en tendencia bajista). Mantiene la dirección establecida.</p>
+                </div>
+                <div>
+                   <p style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.25rem' }}>Ruptura de Tendencia:</p>
+                   <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: 1.5 }}>Se produce cuando el precio cambia su dirección predominante, revirtiendo la tendencia actual. Por ejemplo, pasa de un movimiento alcista a uno bajista o viceversa.</p>
+                </div>
+             </div>
+          </div>
+
+          <p style={{ lineHeight: 1.6, color: 'var(--text-primary)', margin: 0 }}>
+            A continuación, encontrarás 6 imágenes. Debes indicar en cada una si la línea naranja representa o no una ruptura de mercado y justificar tu respuesta.
+          </p>
+          
+          <div style={{ padding: '1rem', backgroundColor: 'var(--card-bg)', borderRadius: '12px', border: '1px solid var(--card-border)' }}>
+             <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '1rem', fontStyle: 'italic' }}>Referencia Visual de Conceptos:</p>
+             <DrawingCanvas src="/estructura-ref.png" alt="Referencia Ruptura vs Tendencia" />
+          </div>
+
+          <div style={{ marginTop: '1rem' }}>
+            <p style={{ color: 'var(--text-primary)', fontWeight: 600, marginBottom: '1rem' }}>Analiza las 6 imágenes del reto:</p>
+            <GalleryCanvas 
+              images={[
+                "/estructura-1.png", 
+                "/estructura-2.png", 
+                "/estructura-3.png", 
+                "/estructura-4.png", 
+                "/estructura-5.png", 
+                "/estructura-6.png"
+              ]} 
+              alt="Ejercicios de Estructura de Mercado" 
+            />
+          </div>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <label style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Tus Respuestas (1 al 6) y Justificación:</label>
+            <textarea 
+              placeholder="Ejemplo: 1. Sí, es ruptura de estructura porque... 2. No, es cambio de tendencia porque..."
+              style={{
+                width: '100%',
+                minHeight: '150px',
+                backgroundColor: 'var(--bg-color)',
+                border: '1px solid var(--card-border)',
+                borderRadius: '8px',
+                padding: '1rem',
+                color: 'var(--text-primary)',
+                fontFamily: 'var(--font-family)',
+                fontSize: '0.95rem',
+                outline: 'none',
+                resize: 'vertical'
+              }}
+              onFocus={(e) => e.target.style.borderColor = 'var(--accent-color)'}
+              onBlur={(e) => e.target.style.borderColor = 'var(--card-border)'}
+            />
+          </div>
+
+          <p style={{ lineHeight: 1.6, color: 'var(--text-secondary)', margin: 0 }}>
+            <em>Es vital clarificar el funcionamiento de los impulsos y los pullbacks. Una vez analizadas las 6 imágenes, pulsa para ver la corrección en video.</em>
+          </p>
+        </div>
+      ),
+      options: [
+        "He analizado las 6 imágenes y redactado mi justificación."
+      ],
+      correctAnswer: 0,
+      explanation: (
+        <div className="explanation-content" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div>
+            <h4 style={{ color: 'var(--text-primary)', fontSize: '1.2rem', margin: '0 0 0.5rem 0' }}>Solución en Video: Estructura de Mercado</h4>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
+              En este video resolvemos el ejercicio de la semana, explicando detalladamente cada una de las 6 imágenes y por qué se consideran rupturas de estructura o cambios de tendencia.
+            </p>
+          </div>
+          
+          <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--card-border)', backgroundColor: 'var(--bg-color)', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.5)' }}>
+            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+               <iframe 
+                  src="https://www.loom.com/embed/d47d146561b74f83b13c23010652df3e?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" 
+                  frameBorder="0" 
+                  webkitAllowFullScreen={true}
+                  mozAllowFullScreen={true}
+                  allowFullScreen={true}
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+               ></iframe>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      id: 9,
+      title: "Fractalidad y Multitemporalidad",
+      desc: "Análisis de la repetición de patrones en diferentes marcos temporales.",
+      question: (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <h3 style={{ color: 'var(--accent-color)', fontSize: '1.4rem', margin: 0 }}>Desafío: Fractalidad en los Mercados</h3>
+          
+          <p style={{ lineHeight: 1.6, color: 'var(--text-primary)', margin: 0 }}>
+            ¡Llegó el ejercicio de la semana! En esta ocasión, nos centraremos en la fractalidad y en cómo los patrones se repiten consistentemente en todas las temporalidades.
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', backgroundColor: 'rgba(255, 255, 255, 0.03)', padding: '1.25rem', borderRadius: '12px', border: '1px solid var(--card-border)' }}>
+             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <h4 style={{ color: 'var(--accent-color)', margin: 0, fontSize: '1rem' }}>Distribución de Gráficos:</h4>
+                <ul style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', paddingLeft: '1.2rem', margin: 0 }}>
+                   <li><strong>S. Izquierda:</strong> Temporalidad mayor.</li>
+                   <li><strong>I. Izquierda:</strong> Temporalidad análisis mayor.</li>
+                   <li><strong>S. Derecha:</strong> Temporalidad análisis menor.</li>
+                   <li><strong>I. Derecha:</strong> Gráfico de ejecución.</li>
+                </ul>
+             </div>
+             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <h4 style={{ color: 'var(--accent-color)', margin: 0, fontSize: '1rem' }}>Indicadores (EMAs):</h4>
+                <ul style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', paddingLeft: '1.2rem', margin: 0 }}>
+                   <li><strong>Azul:</strong> EMA50 de temporalidad actual.</li>
+                   <li><strong>Blanco:</strong> EMA50 de temporalidad mayor.</li>
+                </ul>
+             </div>
+          </div>
+
+          <p style={{ lineHeight: 1.6, color: 'var(--text-primary)', margin: 0 }}>
+            Realiza un análisis exhaustivo de lo que observas en este cuadrante multitemporal:
+          </p>
+          
+          <DrawingCanvas src="/fractalidad.png" alt="Análisis de Fractalidad" />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <label style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Tu Análisis (Usa la plantilla de la sección "Ideas"):</label>
+            <textarea 
+              placeholder="Escribe aquí tu análisis detallado sobre la fractalidad y lo que observas en las 4 temporalidades..."
+              style={{
+                width: '100%',
+                minHeight: '150px',
+                backgroundColor: 'var(--bg-color)',
+                border: '1px solid var(--card-border)',
+                borderRadius: '8px',
+                padding: '1rem',
+                color: 'var(--text-primary)',
+                fontFamily: 'var(--font-family)',
+                fontSize: '0.95rem',
+                outline: 'none',
+                resize: 'vertical'
+              }}
+            />
+          </div>
+        </div>
+      ),
+      options: [
+        "He completado mi análisis multitemporal."
+      ],
+      correctAnswer: 0,
+      explanation: (
+        <div className="explanation-content" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div>
+            <h4 style={{ color: 'var(--text-primary)', fontSize: '1.2rem', margin: '0 0 0.5rem 0' }}>Solución y Valor de la Fractalidad</h4>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, margin: '0 0 1rem 0' }}>
+              En este documento y video, explico el valor y el peso de la fractalidad en los mercados. No es necesario obsesionarse buscando patrones en múltiples temporalidades; este ejercicio tiene como único fin explicar cómo funciona la fractalidad.
+            </p>
+          </div>
+          
+          <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--card-border)', backgroundColor: 'var(--bg-color)', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.5)' }}>
+            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+               <iframe 
+                  src="https://www.loom.com/embed/5dab4e79c447409abbc060daf183ba7b?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" 
                   frameBorder="0" 
                   webkitAllowFullScreen={true}
                   mozAllowFullScreen={true}
